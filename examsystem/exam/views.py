@@ -31,4 +31,17 @@ def exam_list(request):
 @login_required
 def take_exam(request, exam_id):
     questions = Question.objects.filter(exam_id=exam_id)
+    score = 0
+    total = questions.count()
+    
+    if request.method == "POST":
+        for q in questions:
+            selected = request.POST.get(str(q.id))
+            if selected == q.correct_answer:
+                score += 1
+        return render(request, 'result.html', {
+            'score': score,
+            'total': total
+            
+        })
     return render(request, 'take_exam.html', {'questions': questions})
