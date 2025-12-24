@@ -1,6 +1,7 @@
 <h2>Exam Questions</h2>
 
-<form>
+<form method="post">
+    {% csrf_token %}
 {% for q in questions %}
     <p>{{ q.question_text }}</p>
 
@@ -10,4 +11,5 @@
     <input type="radio" name="{{ q.id }}"> {{ q.option_d }} <br>
     <hr>
 {% endfor %}
+    <button type="submit">Submit Exam</button>
 </form>
