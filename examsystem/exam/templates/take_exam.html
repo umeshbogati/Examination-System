@@ -1,0 +1,13 @@
+<h2>Exam Questions</h2>
+
+<form>
+{% for q in questions %}
+    <p>{{ q.question_text }}</p>
+
+    <input type="radio" name="{{ q.id }}"> {{ q.option_a }} <br>
+    <input type="radio" name="{{ q.id }}"> {{ q.option_b }} <br>
+    <input type="radio" name="{{ q.id }}"> {{ q.option_c }} <br>
+    <input type="radio" name="{{ q.id }}"> {{ q.option_d }} <br>
+    <hr>
+{% endfor %}
+</form>

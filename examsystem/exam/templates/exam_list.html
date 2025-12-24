@@ -1,0 +1,12 @@
+<h2>Available Exams</h2>
+
+<ul>
+{% for exam in exams %}
+    <li>
+        {{ exam.title }} -
+        <a href="/exam/{{ exam.id }}/">Start Exam</a>
+    </li>
+{% endfor %}
+</ul>
+
+<a href="/logout/">Logout</a>
