@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -11,7 +12,6 @@ class Student(models.Model):
         return self.name
 
 
-# Exam Model
 class Exam(models.Model):
     title = models.CharField(max_length=200)
     total_marks = models.IntegerField()
@@ -20,7 +20,7 @@ class Exam(models.Model):
         return self.title
 
 
-# Question Model
+
 class Question(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     question_text = models.CharField(max_length=300)
@@ -31,6 +31,19 @@ class Question(models.Model):
     option_d = models.CharField(max_length=200)
 
     correct_answer = models.CharField(max_length=1)
-
     def __str__(self):
         return self.question_text
+
+
+class Result (models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    total = models.IntegerField()
+    
+    def __str__(self):
+        return self.student.username
+
+    
+
+    
