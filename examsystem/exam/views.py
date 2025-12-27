@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Exam, Question
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from .models import Result
 # Create your views here.
 def student_login(request):
     if request.method == "POST":
@@ -40,6 +40,12 @@ def take_exam(request, exam_id):
             selected = request.POST.get(str(q.id))
             if selected == q.correct_answer:
                 score += 1
+        Result.objects.create(
+            student=request.user,
+            exam_id=exam_id,
+            score=score,
+            total=total
+        )
         return render(request, 'result.html', {
             'score': score,
             'total': total
