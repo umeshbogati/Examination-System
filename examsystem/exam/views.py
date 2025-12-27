@@ -47,18 +47,20 @@ def take_exam(request, exam_id):
         })
     return render(request, 'take_exam.html', {'questions': questions})
 
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
 def student_register(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists")
         else:
             User.objects.create_user(username=username, password=password)
-            messages.success(request,"Account created successfully")
+            messages.success(request, "Account created successfully")
             return redirect('login')
-        return render(request, 'register.html')
-        
-        
+
+    return render(request, 'exam/register.html')
